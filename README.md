@@ -33,3 +33,17 @@ module.exports = {
 }
 
 ```
+
+### Options
+
+## DtsObviBundlePluginOptions : <code>object</code>
+
+**Properties**
+
+| Name              | Type                                                                   | Default                                | Description                                                               |
+| ----------------- | ---------------------------------------------------------------------- | -------------------------------------- | ------------------------------------------------------------------------- |
+| [compilerOptions] | <code>ts.CompilerOptions</code>                                        | <code>{}</code>                        | tsconfig compilerOptions to override your tsconfig definition             |
+| [config]          | <code>string</code>                                                    | <code>&quot;tsconfig.json&quot;</code> | Path to tsconfig.json                                                     |
+| [entry]           | <code>string</code>                                                    |                                        | Entry to your .d.ts type definitions                                      |
+| [excludes]        | <code>Array.&lt;string&gt;</code> \| <code>Array.&lt;RegExp&gt;</code> | <code>[]</code>                        | list of node_modules to exclude type definitions for                      |
+| [out]             | <code>string</code>                                                    | <code>&quot;obvi-types&quot;</code>    | output path relative to webpack output directory to store generated types |

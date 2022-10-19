@@ -1,3 +1,5 @@
+const fs = require("fs");
+const assert = require("assert");
 const path = require("path");
 const webpack = require("webpack");
 const options = require("./fixture/webpack.config");
@@ -20,15 +22,31 @@ describe("obvi bundle", () => {
       }
 
       // 3. Map asset objects to output filenames
-      // const files = stats.toJson().assets.map((x) => x.name);
+      const files = stats.toJson().assets.map((x) => x.name);
+      const allFiles = files.every((file) => ["main.js", "sqs.d.ts", "index.d.ts"].includes(file));
+      assert.ok(allFiles);
 
-      // // 4. Run assertions. Make sure that the three expected
-      // //    HTML files were generated
-      // t.true(files.indexOf("index.html") !== -1);
-      // t.true(files.indexOf("about.html") !== -1);
-      // t.true(files.indexOf("404.html") !== -1);
+      const index = fs.readFileSync("./dist/index.d.ts", "utf8");
+      assert.ok(
+        index ===
+          `export * as kms from "./obvi-types/aws-cdk-lib/aws-kms";
+export { default as sqs } from "./sqs";
+`
+      );
 
-      // t.end();
+      const sqs = fs.readFileSync("./dist/sqs.d.ts", "utf8");
+      assert.ok(
+        sqs ===
+          `import * as sqs from "./obvi-types/aws-cdk-lib/aws-sqs";
+declare class Queue extends sqs.Queue {
+}
+declare const _default: typeof sqs & {
+    Queue: typeof Queue;
+};
+export default _default;
+`
+      );
+
       done();
     });
   }, 30000);
