@@ -65,7 +65,10 @@ class DtsObviBundlePlugin {
         }
         return exclude;
       });
-      tsCompiler.compile(entry, config, path.resolve(this.compiler.outputPath, this.options.out), excludes);
+      const res = tsCompiler.compile(entry, config, path.resolve(this.compiler.outputPath, this.options.out), excludes);
+      if (res.errors) {
+        res.errors.forEach((e) => compilation.warnings.push(e));
+      }
     } catch (e) {
       return compilation.errors.push(e);
     }
