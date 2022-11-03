@@ -1,4 +1,5 @@
 const DtsObviBundlePlugin = require("../../index");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = () => {
   return {
@@ -18,7 +19,12 @@ module.exports = () => {
     resolve: {
       extensions: [".ts", ".js"],
     },
-    plugins: [new DtsObviBundlePlugin()],
+    plugins: [
+      //new DtsObviBundlePlugin(),
+      new CopyPlugin({
+        patterns: [{ from: "package.json" }],
+      }),
+    ],
     module: {
       rules: [
         {

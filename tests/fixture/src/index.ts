@@ -1,5 +1,9 @@
 // straight export from 3rd party dependency
-export * as kms from "aws-cdk-lib/aws-kms";
-export * as constructs from "constructs";
+import * as core from "aws-cdk-lib";
+import * as kms from "aws-cdk-lib/aws-kms";
+import * as constructs from "constructs";
 // overloaded export from 3rd party dependency
-export { default as sqs } from "./sqs";
+// import * as sqs from "./sqs";
+import * as sqs from "aws-cdk-lib/aws-sqs";
+
+export { kms, constructs, sqs, core };
